@@ -2,10 +2,9 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-/// Check if a single report is safe based on the given rules.
 fn is_safe_report(report: &[i32]) -> bool {
     if report.len() < 2 {
-        return false; // Reports with less than 2 levels cannot satisfy the rules.
+        return false; 
     }
 
     let mut is_increasing = true;
@@ -14,12 +13,10 @@ fn is_safe_report(report: &[i32]) -> bool {
     for i in 0..report.len() - 1 {
         let diff = report[i + 1] - report[i];
 
-        // Check the range of the difference
         if diff.abs() < 1 || diff.abs() > 3 {
             return false;
         }
 
-        // Check for increasing or decreasing trends
         if diff > 0 {
             is_decreasing = false;
         } else if diff < 0 {
@@ -27,11 +24,9 @@ fn is_safe_report(report: &[i32]) -> bool {
         }
     }
 
-    // Must be strictly increasing or strictly decreasing
     is_increasing || is_decreasing
 }
 
-/// Count the number of safe reports in the file data.
 fn count_safe_reports<P: AsRef<Path>>(file_path: P) -> io::Result<usize> {
     let file = File::open(file_path)?;
     let reader = io::BufReader::new(file);
@@ -54,7 +49,7 @@ fn count_safe_reports<P: AsRef<Path>>(file_path: P) -> io::Result<usize> {
 }
 
 fn main() {
-    let file_path = "data2.txt"; // Path to the input file
+    let file_path = "data2.txt"; 
 
     match count_safe_reports(file_path) {
         Ok(safe_count) => println!("Number of safe reports: {}", safe_count),
